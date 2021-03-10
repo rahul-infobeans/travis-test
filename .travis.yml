@@ -28,6 +28,15 @@ before_install:
   - chmod +x build.sh
 script: ./build.sh
 
+addons:
+  apt:
+    packages:
+      # required by WordPress
+      - php5-mysql
+    hosts:
+      - wp.localhost
+      - test1.wp.localhost
+      - test2.wp.localhost
 
 # deploy:
 #   provider: pages
