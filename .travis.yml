@@ -22,20 +22,6 @@ cache:
     - vendor
     - $HOME/.composer/cache/files
 
-addons:
-  apt:
-    packages:
-      # required by WordPress
-      - libjpeg-dev
-      - libpng12-dev
-      - php5-fpm
-      - php5-mysql
-      - nginx
-  hosts:
-    - wp.localhost
-    - test1.wp.localhost
-    - test2.wp.localhost
-
 deploy:
   provider: pages
   skip_cleanup: true
