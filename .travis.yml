@@ -26,8 +26,11 @@ jobs:
   include:
     - php: 7.4
       env: WP_TRAVISCI=travis:phpunit
-    - stage: "PR: Lint, Build & Tests"
+    - stage: "Test stage 1"
       if: type != pull_request
+      script: ./build.sh
+    - stage: "Test Stage 2"
+      if: type = pull_request
       script: ./build.sh
 
 # addons:
