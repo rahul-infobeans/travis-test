@@ -24,6 +24,13 @@ cache:
     - vendor
     - $HOME/.composer/cache/files
 
+script:
+  - codecept run acceptance
+  - codecept run functional
+  - codecept run integration
+  - codecept run unit
+
+
 # deploy:
 #   provider: pages
 #   skip_cleanup: true
