@@ -26,7 +26,7 @@ addons:
       - libpng-dev
       # - php7-fpm
       # - php7-mysql
-      # - nginx
+      - apache2
   # hosts:
   #   - wp.localhost
   #   - test1.wp.localhost
