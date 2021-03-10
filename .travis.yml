@@ -24,7 +24,7 @@ cache:
     - vendor
     - $HOME/.composer/cache/files
 before_install:
-  - sh build.sh
+  - touch build.sh
   - chmod +x build.sh
 script: ./build.sh
 
