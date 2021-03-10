@@ -358,7 +358,6 @@ registerBlockType( 'create-block/example-06', {
 
 import { useSelect } from '@wordpress/data';
 import { useEntityProp } from '@wordpress/core-data';
- 
 registerBlockType( 'create-block/meta-block', {
     title: 'Meta Block',
     icon: 'smiley',
@@ -375,7 +374,7 @@ registerBlockType( 'create-block/meta-block', {
             postType,
             'meta'
 		);
-		//console.log('posttype', postType, 'Meta', meta, 'setmeta', setMeta);
+		console.log('posttype', postType, 'Meta', meta, 'setmeta', setMeta);
 		
         const metaFieldValue = meta['myguten_meta_block_field'];
         function updateMetaValue( newValue ) {
