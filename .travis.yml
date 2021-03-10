@@ -42,11 +42,11 @@ addons:
       - test1.wp.localhost
       - test2.wp.localhost
 
-# deploy:
-#   provider: pages
-#   skip_cleanup: true
-#   github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
-#   keep_history: true
-#   on:
-#     branch: main
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  on:
+    branch: main
 
