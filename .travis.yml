@@ -24,8 +24,8 @@ addons:
       # required by WordPress
       - libjpeg-dev
       - libpng-dev
-      - php7-fpm
-      - php7-mysql
+      # - php7-fpm
+      # - php7-mysql
       # - nginx
   # hosts:
   #   - wp.localhost
