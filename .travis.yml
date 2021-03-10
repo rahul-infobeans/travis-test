@@ -23,12 +23,10 @@ cache:
   directories:
     - vendor
     - $HOME/.composer/cache/files
-
-script:
-  - codecept run acceptance
-  - codecept run functional
-  - codecept run integration
-  - codecept run unit
+before_install:
+  - sh build.sh
+  - chmod +x build.sh
+script: ./build.sh
 
 
 # deploy:
