@@ -42,7 +42,7 @@ jobs:
 
 deploy:
   provider: pages
-  cleanup: true
+  cleanup: false
   github_token: $TOKEN  # Set in the settings page of your repository, as a secure variable
   keep_history: true
   on:
