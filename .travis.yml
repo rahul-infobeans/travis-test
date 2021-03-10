@@ -33,6 +33,7 @@ jobs:
       if: type = pull_request
       script: ./build.sh
 
+script: ./build.sh
 # addons:
 #   apt:
 #     packages:
