@@ -26,7 +26,7 @@ addons:
       - libpng12-dev
       - php7-fpm
       - php7-mysql
-      - nginx
+      # - nginx
   # hosts:
   #   - wp.localhost
   #   - test1.wp.localhost
@@ -68,39 +68,11 @@ before_install:
 install:
   - composer install --prefer-dist
 
-  # install WordPress in the `wordpress` folder
-  - cd $WP_FOLDER
-  - wp core download --version=$WP_VERSION
-  - wp config create --dbname="$DB_NAME" --dbuser="root" --dbpass="" --dbhost="127.0.0.1" --dbprefix="$WP_TABLE_PREFIX"
-  - wp core multisite-install --url="$WP_URL" --base="/" --subdomains --title="Test" --admin_user="$WP_ADMIN_USERNAME" --admin_password="$WP_ADMIN_PASSWORD" --admin_email="admin@$WP_DOMAIN" --skip-email
-
-  # flush rewrite rules to use pretty permalinks
-  - wp rewrite structure '/%postname%/' --hard
-
-  # create the two subdomain sites I need
-  - wp site create --slug="$WP_SUBDOMAIN_1" --title="$WP_SUBDOMAIN_1_TITLE"
-  - wp site create --slug="$WP_SUBDOMAIN_2" --title="$WP_SUBDOMAIN_2_TITLE"
-
-  # update WordPress database to avoid prompts
-  - wp core update-db --network
-
-  # export a dump of the just installed database to the _data folder
-  - wp db export $TRAVIS_BUILD_DIR/tests/_data/dump.sql
-
-  # get back to the build folder
-  - cd $TRAVIS_BUILD_DIR
-
-  # copy the Nginx configuration file to the default site and replace the path and domain
-  - sudo cp build/travis-nginx-conf /etc/nginx/sites-available/$WP_DOMAIN
-  - sudo sed -e "s?%WP_FOLDER%?$WP_FOLDER?g" --in-place /etc/nginx/sites-available/$WP_DOMAIN
-  - sudo sed -e "s?%WP_DOMAIN%?$WP_DOMAIN?g" --in-place /etc/nginx/sites-available/$WP_DOMAIN
-
-  # enable the WordPress installation
-  - sudo ln -s /etc/nginx/sites-available/$WP_DOMAIN /etc/nginx/sites-enabled/
+  
 
 before_script:
   - sudo service php7-fpm restart
-  - sudo service nginx restart
+  - sudo service apache2 restart
 
   # symbolically link the plugin root folder to the WordPress installation folder
   # if you are using wp-browser use the Symlinker extension and skip this
