@@ -6,9 +6,12 @@ php:
 
 matrix:
   fast_finish: true
-  allow_failures:
-    - php: 7.4
-    - env: WP_VERSION=7.4
+  include:
+    php: 5.4
+    env: WP_TRAVISCI=travis:phpunit
+  # allow_failures:
+  #   - php: 7.4
+  #   - env: WP_VERSION=7.4
 
 services:
   - mysql
@@ -19,4 +22,25 @@ cache:
     - vendor
     - $HOME/.composer/cache/files
 
+addons:
+  apt:
+    packages:
+      # required by WordPress
+      - libjpeg-dev
+      - libpng12-dev
+      - php5-fpm
+      - php5-mysql
+      - nginx
+  hosts:
+    - wp.localhost
+    - test1.wp.localhost
+    - test2.wp.localhost
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  on:
+    branch: main
 
