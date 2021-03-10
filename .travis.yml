@@ -34,11 +34,11 @@ addons:
 
 env:
   global:
-    - WP_FOLDER="/var/www/html/wordpress"
+    - WP_FOLDER="/tmp/wordpress"
     - WP_URL="http://wp.localhost"
     - WP_DOMAIN="wp.localhost"
-    - DB_NAME="test_wordpress"
-    - TEST_DB_NAME="test_wordpress"
+    - DB_NAME="test_wordpress1"
+    - TEST_DB_NAME="test_wordpress1"
     - WP_TABLE_PREFIX="wp_"
     - WP_ADMIN_USERNAME="pooja"
     - WP_ADMIN_PASSWORD="pooja"
