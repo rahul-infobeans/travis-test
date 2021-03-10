@@ -1,5 +1,7 @@
 sudo: required
 language: php
+notifications:
+  email: false
 
 php:
   - '7.4'
@@ -21,6 +23,11 @@ cache:
   directories:
     - vendor
     - $HOME/.composer/cache/files
+before_install:
+  - touch build.sh
+  - chmod +x build.sh
+script: ./build.sh
+
 
 # deploy:
 #   provider: pages
