@@ -358,7 +358,6 @@ registerBlockType( 'create-block/example-06', {
 
 import { useSelect } from '@wordpress/data';
 import { useEntityProp } from '@wordpress/core-data';
- 
 registerBlockType( 'create-block/meta-block', {
     title: 'Meta Block',
     icon: 'smiley',
