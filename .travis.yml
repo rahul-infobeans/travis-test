@@ -49,7 +49,7 @@ before_script:
   - sudo service apache2 restart
 
 
-# script: ./build.sh
+script: ./build.sh
 
 # addons:
 #   apt:
