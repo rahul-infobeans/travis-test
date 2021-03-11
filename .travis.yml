@@ -4,35 +4,32 @@ notifications:
 
 php:
   - '7.4'
-
 services:
   - mysql
-
 cache:
   apt: true
   directories:
     - vendor
     - $HOME/.composer/cache/files
-
 env:
   - WP_VERSION=master WP_MULTISITE=0
   - WP_TRAVISCI=travis:phpunit
-    
-
 before_install:
 #   - touch build.sh
   - chmod +x build.sh
-
 jobs:
   fast_finish: true
   include:
     - stage: "Test stage 1"
       if: type != pull_request
+      script: "Running stage Test stage"
       script: ./build.sh
     - stage: "Test Stage 2"
       if: type = pull_request
       script: ./build.sh
-
+    - stage: "Test Stage 3"
+      script: "Running test stage 3"
+      script: ./build.sh
 before_script:
   - sudo apt-get update
   - sudo apt-get install apache2 libapache2-mod-fastcgi
@@ -49,7 +46,9 @@ before_script:
   - sudo service apache2 restart
 
 
-script: ./build.sh
+script: skip 
+
+# ./build.sh
 
 # addons:
 #   apt:
