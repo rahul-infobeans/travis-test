@@ -16,6 +16,8 @@ cache:
 
 env:
   - WP_VERSION=master WP_MULTISITE=0
+  - WP_TRAVISCI=travis:phpunit
+    
 
 before_install:
 #   - touch build.sh
@@ -24,8 +26,6 @@ before_install:
 jobs:
   fast_finish: true
   include:
-    - php: 7.4
-      env: WP_TRAVISCI=travis:phpunit
     - stage: "Test stage 1"
       if: type != pull_request
       script: ./build.sh
@@ -49,7 +49,8 @@ before_script:
   - sudo service apache2 restart
 
 
-script: ./build.sh
+# script: ./build.sh
+
 # addons:
 #   apt:
 #     packages:
