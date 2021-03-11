@@ -13,7 +13,7 @@ jobs:
   include:
     - stage: "Test stage 1"
       if: type != pull_request
-    - script: "Running stage Test stage"
+    - script: echo "Running stage Test stage"
     - script: ./build.sh
     - stage: "Test Stage 2"
       if: type = pull_request
