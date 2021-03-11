@@ -4,67 +4,21 @@ notifications:
 
 php:
   - '7.4'
-services:
-  - mysql
-cache:
-  apt: true
-  directories:
-    - vendor
-    - $HOME/.composer/cache/files
 env:
-  - WP_VERSION=master WP_MULTISITE=0
   - WP_TRAVISCI=travis:phpunit
 before_install:
-#   - touch build.sh
   - chmod +x build.sh
 jobs:
   fast_finish: true
   include:
     - stage: "Test stage 1"
       if: type != pull_request
-      script: "Running stage Test stage"
-      script: ./build.sh
+    - script: "Running stage Test stage"
+    - script: ./build.sh
     - stage: "Test Stage 2"
       if: type = pull_request
       script: ./build.sh
     - stage: "Test Stage 3"
       script: "Running test stage 3"
       script: ./build.sh
-before_script:
-  - sudo apt-get update
-  - sudo apt-get install apache2 libapache2-mod-fastcgi
-  # enable php-fpm
-  - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
-  - sudo a2enmod rewrite actions fastcgi alias
-  - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - sudo sed -i -e "s,www-data,travis,g" /etc/apache2/envvars
-  - sudo chown -R travis:travis /var/lib/apache2/fastcgi
-  - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
-  # configure apache virtual hosts
-  - sudo cp -f build/travis-ci-apache /etc/apache2/sites-available/000-default.conf
-  - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/000-default.conf
-  - sudo service apache2 restart
-
-
 script: skip 
-
-# ./build.sh
-
-# addons:
-#   apt:
-#     packages:
-#       # required by WordPress
-#       # - php5-mysql
-#     hosts:
-#       - wp.localhost
-#       - test1.wp.localhost
-#       - test2.wp.localhost
-
-# deploy:
-#   provider: pages
-#   cleanup: false
-#   github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
-#   keep_history: true
-#   on:
-#     all_branches: true
-
