@@ -8,6 +8,7 @@ env:
   - WP_TRAVISCI=travis:phpunit
 before_install:
   - chmod +x build.sh
+  - chmod +x build-1.sh
 jobs:
   fast_finish: true
   include:
@@ -19,6 +20,5 @@ jobs:
       if: type = pull_request
       script: ./build.sh
     - stage: "Test Stage 3"
-      script: "Running test stage 3"
-      script: ./build.sh
+      script: ./build-1.sh
 script: skip 
