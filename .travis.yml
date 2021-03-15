@@ -4,6 +4,7 @@ language: php
 
 php:
   - '7.4'
+  - '7.2'
 # env:
 #   - WP_TRAVISCI=travis:phpunit
 # before_install: echo "Before install call"
