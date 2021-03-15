@@ -20,7 +20,7 @@ DEPLOY_SUFFIX="${VIP_DEPLOY_SUFFIX:--built}"
 BRANCH="${CIRCLE_BRANCH:-$TRAVIS_BRANCH}"
 
 SRC_DIR="${TRAVIS_BUILD_DIR:-$PWD}"
-BUILD_DIR="/tmp/vip-go-build-$(date +%s)"
+BUILD_DIR="/tmp/test-build-$(date +%s)"
 
 if [[ $CIRCLECI ]]; then
 	CIRCLE_REPO_SLUG="${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}";
