@@ -2,8 +2,8 @@ language: php
 # notifications:
 #   email: false
 
-# php:
-#   - '7.4'
+php:
+  - '7.4'
 # env:
 #   - WP_TRAVISCI=travis:phpunit
 # before_install: echo "Before install call"
