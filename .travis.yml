@@ -6,19 +6,6 @@ php:
   - '7.4'
 env:
   - WP_TRAVISCI=travis:phpunit
-before_install:
-  - chmod +x build.sh
-  - chmod +x build-1.sh
-jobs:
-  fast_finish: true
-  include:
-    - stage: "Test stage 1"
-      if: type != pull_request
-    - script: echo "Running stage Test stage"
-    - script: ./build.sh
-    - stage: "Test Stage 2"
-      if: type = pull_request
-      script: ./build.sh
-    - stage: "Test Stage 3"
-      script: ./build-1.sh
-script: skip 
+before_install: echo "Before install call"
+install: echo "install call"
+script: echo "Script call" 
