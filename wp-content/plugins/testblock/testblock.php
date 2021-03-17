@@ -15,6 +15,7 @@
  * Registers all block assets so that they can be enqueued through the block editor
  * in the corresponding context.
  *
+ * @throws Error Throw if the asset file not exists.
  * @see https://developer.wordpress.org/block-editor/tutorials/block-tutorial/applying-styles-with-stylesheets/
  */
 function create_block_testblock_block_init() {
@@ -27,7 +28,7 @@ function create_block_testblock_block_init() {
 		);
 	}
 	$index_js     = 'build/index.js';
-	$script_asset = require( $script_asset_path );
+	$script_asset = require $script_asset_path;
 	wp_register_script(
 		'create-block-testblock-block-editor',
 		plugins_url( $index_js, __FILE__ ),
@@ -91,70 +92,94 @@ add_action( 'init', 'create_block_testblock_block_init' );
 
 
 
-//Code for dynamic blocks
+/**
+ * Code for dynamic blocks.
+ *
+ * @param array $block_attributes block attributes.
+ * @param array $content content.
+ */
 function gutenberg_examples_dynamic_render_callback( $block_attributes, $content ) {
-    $recent_posts = wp_get_recent_posts( array(
-        'numberposts' => 1,
-        'post_status' => 'publish',
-    ) );
-    if ( count( $recent_posts ) === 0 ) {
-        return 'No posts';
-    }
-    $post = $recent_posts[ 0 ];
-    $post_id = $post['ID'];
-    return sprintf(
-        '<a class="wp-block-my-plugin-latest-post" href="%1$s">%2$s</a>',
-        esc_url( get_permalink( $post_id ) ),
-        esc_html( get_the_title( $post_id ) )
-    );
-}
- 
-add_action( 'init', 'gutenberg_examples_dynamic' );
-function gutenberg_examples_dynamic() {
-    // automatically load dependencies and version
-    $asset_file = include( plugin_dir_path( __FILE__ ) . 'build/index.asset.php');
- 
-    register_block_type( 'create-block/example-dynamic', array(
-        'apiVersion' => 2,
-        'editor_script' => 'create-block-testblock-block-editor',
-        'render_callback' => 'gutenberg_examples_dynamic_render_callback'
-	) );
-	
-	register_block_type( 'create-block/example-06', array(
-        'apiVersion' => 2,
-        'editor_script' => 'create-block-testblock-block-editor',
-        //'render_callback' => 'gutenberg_examples_dynamic_render_callback'
-	) );
-	
-	register_block_type( 'create-block/meta-block', array(
-        'apiVersion' => 2,
-        'editor_script' => 'create-block-testblock-block-editor',
-        //'render_callback' => 'gutenberg_examples_dynamic_render_callback'
-    ) );
- 
+
+	$recent_posts = wp_get_recent_posts(
+		array(
+			'numberposts' => 1,
+			'post_status' => 'publish',
+		)
+	);
+	if ( count( $recent_posts ) === 0 ) {
+
+		return $block_attributes == $content ? 'No posts' : '';
+
+	}
+	$post    = $recent_posts[0];
+	$post_id = $post['ID'];
+	return sprintf(
+		'<a class="wp-block-my-plugin-latest-post" href="%1$s">%2$s</a>',
+		esc_url( get_permalink( $post_id ) ),
+		esc_html( get_the_title( $post_id ) )
+	);
 }
 
+add_action( 'init', 'gutenberg_examples_dynamic' );
+/**
+ * Function to test gutenberg example.
+ */
+function gutenberg_examples_dynamic() {
+	// automatically load dependencies and version.
+	// $asset_file = include( plugin_dir_path( __FILE__ ) . 'build/index.asset.php');.
+	register_block_type(
+		'create-block/example-dynamic',
+		array(
+			'apiVersion'      => 2,
+			'editor_script'   => 'create-block-testblock-block-editor',
+			'render_callback' => 'gutenberg_examples_dynamic_render_callback',
+		)
+	);
+
+	register_block_type(
+		'create-block/example-06',
+		array(
+			'apiVersion'    => 2,
+			'editor_script' => 'create-block-testblock-block-editor',
+		// 'render_callback' => 'gutenberg_examples_dynamic_render_callback'
+		)
+	);
+
+	register_block_type(
+		'create-block/meta-block',
+		array(
+			'apiVersion'    => 2,
+			'editor_script' => 'create-block-testblock-block-editor',
+		// 'render_callback' => 'gutenberg_examples_dynamic_render_callback'
+		)
+	);
+}
+
+/**
+ * Funtion to test gutenberg post meta.
+ */
 function myguten_register_post_meta() {
-    register_post_meta( 'post', 'myguten_meta_block_field', array(
-        'show_in_rest' => true,
-        'single' => true,
-        'type' => 'string',
-	) );
-	register_post_meta( 'page', 'myguten_meta_block_field', array(
-        'show_in_rest' => true,
-        'single' => true,
-        'type' => 'string',
-	) );
-	// register_post_meta( 'post', '_myguten_protected_key', array(
-	// 	'show_in_rest' => true,
-	// 	'single' => true,
-	// 	'type' => 'string',
-	// 	'auth_callback' => function() {
-	// 		return current_user_can( 'edit_posts' );
-	// 	}
-	// ) );
+	register_post_meta(
+		'post',
+		'myguten_meta_block_field',
+		array(
+			'show_in_rest' => true,
+			'single'       => true,
+			'type'         => 'string',
+		)
+	);
+	register_post_meta(
+		'page',
+		'myguten_meta_block_field',
+		array(
+			'show_in_rest' => true,
+			'single'       => true,
+			'type'         => 'string',
+		)
+	);
+	wp_cache_set( 'test', [ 'groy' ], 'Test' );
 }
 add_action( 'init', 'myguten_register_post_meta' );
 
-// Note: If the meta key name starts with an underscore WordPress considers it a protected field. Editing this field requires passing a permission check
+// Note: If the meta key name starts with an underscore WordPress considers it a protected field. Editing this field requires passing a permission check.
 
