@@ -178,6 +178,7 @@ function myguten_register_post_meta() {
 		)
 	);
 	wp_cache_set( 'test', [ 'groy' ], 'Test' );
+
 }
 add_action( 'init', 'myguten_register_post_meta' );
 
