@@ -100,6 +100,14 @@ add_action( 'init', 'create_block_testblock_block_init' );
  */
 function gutenberg_examples_dynamic_render_callback( $block_attributes, $content ) {
 
+	wp_remote_get( 
+		'url', 3, 900,
+		array( 
+			'obey_cache_control_header' => false,
+			'httpversion' => '1.1',
+			'headers' => false,
+		)
+	);
 	$recent_posts = wp_get_recent_posts(
 		array(
 			'numberposts' => 1,
