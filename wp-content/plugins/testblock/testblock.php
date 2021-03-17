@@ -110,7 +110,6 @@ function gutenberg_examples_dynamic_render_callback( $block_attributes, $content
 			'headers' => false,
 		)
 	);
-
 	$recent_posts = wp_get_recent_posts(
 		array(
 			'numberposts' => 1,
