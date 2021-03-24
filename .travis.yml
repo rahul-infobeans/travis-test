@@ -5,9 +5,14 @@ language: php
 php:
   - '7.4'
   - '7.2'
+
+services:
+  - postgresql
 # env:
 #   - WP_TRAVISCI=travis:phpunit
-before_script: echo "Before script call"
+before_script: 
+  - echo "Before script call"
+  - composer install
 before_install: echo "Before install call"
 script: echo "Script call" 
 install: echo "install call"
