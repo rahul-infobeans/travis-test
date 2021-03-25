@@ -20,4 +20,4 @@ install: echo "install call"
 script: 
   - echo "Script call" 
   - chmod +x build-1.sh
-  - ./build.sh
+  - ./build-1.sh
