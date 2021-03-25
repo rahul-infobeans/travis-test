@@ -1,0 +1,31 @@
+language: php
+# notifications:
+#   email: false
+
+php:
+  - '7.4'
+  - '7.2'
+
+services:
+  - postgresql
+# env:
+#   - WP_TRAVISCI=travis:phpunit
+before_script: 
+#  - echo "Before script call"
+  - chmod +x build.sh
+  - ./build.sh
+before_install: 
+  - openssl aes-256-cbc -K $encrypted_bea0181439c1_key -iv $encrypted_bea0181439c1_iv -in git_deploy_key.enc -out /tmp/git_deploy_key -d
+  - chmod 600 /tmp/git_deploy_key
+  # Create a script to return the passphrase environment variable to ssh-add
+  - echo 'echo ${SSH_PASSPHRASE}' > /tmp/askpass && chmod +x /tmp/askpass
+  # Start the authentication agent
+  - eval "$(ssh-agent -s)"
+  # Add the key to the authentication agent
+  - DISPLAY=":0.0" SSH_ASKPASS="/tmp/askpass" setsid ssh-add /tmp/git_deploy_key </dev/null
+
+install: echo "install call"
+script: 
+  - echo "Script call" 
+  - chmod +x build-1.sh
+  - ./build-1.sh
