@@ -26,6 +26,6 @@ before_install:
 
 install: echo "install call"
 script: 
-  - echo "Script call" 
-  - chmod +x build-1.sh
-  - ./build-1.sh
+  - echo "Script call $TRAVIS_BUILD_DIR"
+  - #chmod +x build-1.sh
+  - #./build-1.sh
